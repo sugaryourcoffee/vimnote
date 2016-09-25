@@ -31,13 +31,13 @@ pandoc uses latex to create pdf file. latex can be installed with
 
     $ sudo apt-get install latex-full
 
-As a Vimler you are probably more comfortable with key strokes than using the 
+As a Vimler you are probably more comfortable with touch typing than using the 
 mouse. If so I recommend zathura. To install zathura run
 
     $ sudo apt-get install zathura
 
 Tasks can be extracted from a .mom.md file into a syc-task task. To use this 
-function installe syc-task with
+function install syc-task with
 
     $ gem install syc-task
 
@@ -76,4 +76,8 @@ License
 vimnote comes with the same license as Vim. To read the license see
 
     :help license
+
+Contact
+=======
+Questions and comments are welcome at pierre@sugaryourcoffe.de
 
