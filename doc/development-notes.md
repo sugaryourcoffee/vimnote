@@ -173,12 +173,12 @@ where is the mom directory? We need some way to configure the mom directory. It
 obviously makes sense to have our moms in one place where we can search for 
 their content. We set the global variable in the **~/.vimrc** file
 
-    let g:mom_directory=~/Documents/mom/
+    let g:notes_dir=~/Documents/mom/
 
-Then in our function we can get access to **mom_directory**
+Then in our function we can get access to **notes_dir**
 
     function! vimnote#SearchWord(word)
-      vimgrep /word/ mom_directory/**/*
+      vimgrep /word/ notes_dir/**/*
     endfunction
     command! -nargs=1 FindWord call vimnote#SearchWord(<q-args>)
 
@@ -187,7 +187,7 @@ Search Minutes Files
 To search files Vim comes with the `find` command. The `find` command requires
 the **path** to be populated with the directories we want to search in. If a
 file is found it is opend in the buffer. As an example we want to search for our
-**investment.mom.md** file. First we add the **mom_directory** to the path. Then
+**investment.mom.md** file. First we add the **notes_dir** to the path. Then
 we can search for the file.
 
     :set path+=~/Documents/mom/
@@ -218,7 +218,7 @@ The function that accomplishes the intendet search will look like this
 
     function! vimnote#SearchFiles(filename)
       let quickfix_file = tempname()
-      let command = 'find ' . g:mom_directory . ' -type f -name "' .
+      let command = 'find ' . g:notes_dir . ' -type f -name "' .
                        \ a:filename . '" | xargs file | set "s/:/:1:/"'
       let result = system(command)
       if result =~ 'Usage: '
@@ -347,7 +347,7 @@ We add following functions to vimnote/plugin/vimnote.vim
 
     function! SearchWord(word)
       let quickfix_file = tempname()
-      let command = 'grep -rn ' . a:word . ' ' . g:mom_directory
+      let command = 'grep -rn ' . a:word . ' ' . g:notes_dir
       let result = system(command)[:-3]
 
       if result == ""
@@ -365,7 +365,7 @@ We add following functions to vimnote/plugin/vimnote.vim
 
     function! SearchFiles(filename)
       let quickfix_file = tempname()
-      let command = 'find ' . g:mom_directory . ' -type f -name "' .
+      let command = 'find ' . g:notes_dir . ' -type f -name "' .
                        \ a:filename . '" | xargs file | sed "s/:/:1:/"'
       let result = system(command)[:-3]
 
