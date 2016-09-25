@@ -20,7 +20,7 @@ Preparation
 vimnote expects notes in a specific directory. To specify the directory add
 following snippet to ~/.vimrc
 
-    let g:notes_dir=/path/to/your/notes/directory
+    let g:notes_dir="/path/to/your/notes/directory"
 
 vimnote is using pandoc to create pdf files from the mom.md file. In order to 
 use that function install pandoc with
