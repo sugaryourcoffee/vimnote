@@ -20,14 +20,14 @@ Preparation
 vimnote expects notes in a specific directory. To specify the directory add
 following snippet to ~/.vimrc
 
-    let g:vimnote_dir=/path/to/your/notes/directory
+    let g:notes_dir=/path/to/your/notes/directory
 
 vimnote is using pandoc to create pdf files from the mom.md file. In order to 
 use that function install pandoc with
 
     $ sudo apt-get install pandoc
 
-pandoc uses latex to create pdf file. latex can be installed with
+pandoc uses latex-full to create pdf file. latex can be installed with
 
     $ sudo apt-get install latex-full
 
@@ -66,10 +66,34 @@ When in the note file you can run the WritePDF command to create a pdf file
 The pdf file is saved to /path/to/your/notes/directory/pdf/my-note.mom.pdf
 
 ### ScanTask
+Tasks can be annotated with @tasks| where | is a field separator. Having 
+following task list in the .mom.md file
+
+    @tasks|
+    title|description|tags
+    Homework|do your homework|home_work
+    Kitchen|clean the dishes|home_work
+
+Then you can extract the tasks with
+
+    :ScanTasks
 
 ### FindWord
+To search all .mom.md files for a specific word run
+
+    :FindWord clean
+
+The files containing the search result will be populated to the quickfix list.
+Open the quickfix list with `:copen`. Jump through the list with `:cnext` and
+`:cprev`.
 
 ### FindFile
+Similar to FindWord it is possible to search for files in the vimnote\_dir with
+
+    :FindFiles 2016-09-25*.mom.md
+
+The result will be populated to the quickfix list and can be processed as 
+described in the FindWord section.
 
 License
 =======
