@@ -46,9 +46,22 @@ function! SearchFiles(filename)
 endfunction
 command! -nargs=1 FindFiles call SearchFiles(<q-args>)
 
-" Load a template if a file '.mom.md' is opened
-autocmd BufNewFile *.mom.md 0r ~/.vim/bundle/vimnote/templates/mom.md
+" Load a template if a file with the extension '.mom.md' is opened
+function! LoadTemplate()
+  0r ~/.vim/bundle/vimnote/templates/mom.md
+endfunction
+autocmd BufNewFile *.mom.md call LoadTemplate()
+
 " Mappings to jump to and replace the place holders in the template
 nnoremap <c-j> /<+.\{-1,\}+><cr>c/+>/e<cr>
 inoremap <c-j> <ESC>/<+.\{-1,}+><cr>c/+>/e<cr>
+
+" Intercept the write command for '.mom.md' and save it to the 'notes_dir'
+function! SaveToNotesDir()
+  let original_buffer = @%
+  execute 'save! ' . g:notes_dir . expand("%:p:t")
+  set nomodified
+  execute 'silent bd! ' . original_buffer
+endfunction
+autocmd BufWriteCmd *.mom.md call SaveToNotesDir()
 
