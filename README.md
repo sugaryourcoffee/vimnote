@@ -23,36 +23,44 @@ following snippet to ~/.vimrc
     let g:notes_dir="/path/to/your/notes/directory"
 
 vimnote is using pandoc to create pdf files from the mom.md file. In order to 
-use that function install pandoc with
+use that function install [pandoc](http://pandoc.org/) with
 
     $ sudo apt-get install pandoc
 
-pandoc uses latex-full to create pdf file. latex can be installed with
+pandoc uses latex-full to create pdf file. 
+[latex](https://www.latex-project.org/) can be installed with
 
     $ sudo apt-get install latex-full
 
 As a Vimler you are probably more comfortable with touch typing than using the 
-mouse. If so I recommend zathura. To install zathura run
+mouse. If so I recommend zathura. To install 
+[zathura](https://pwmt.org/projects/zathura/) run
 
     $ sudo apt-get install zathura
 
 Tasks can be extracted from a .mom.md file into a syc-task task. To use this 
-function install syc-task with
+function install [syc-task](https://rubygems.org/gems/syc-task) with
 
     $ gem install syc-task
 
 Usage
 -----
 When opening a file with the extension .mom.md a template file is loaded. The
-template file is save at ~/.vim/bundle/vimnote/templates/mom.md. You can replace
-the content of that file.
+template file is located at ~/.vim/bundle/vimnote/templates/mom.md. You can 
+replace the content of that file in order to use a different content.
 
 When opening a new note open it with
 
-    $ vim /path/to/your/notes/directory/my-note.mom.md
+    $ vim my-note.mom.md
 
-This has the advantage when searching content of notes or note files they will
-be found by the FindFiles and FindWords commands.
+it will be saved to the `notes_dir` directory. This has the advantage when 
+searching content of notes or note files they will be found by the 
+**FindFiles** and **FindWords** commands.
+
+If the file exists in the `notes_dir` it will be opened even though the path to
+the `notes_dir` is not provided. If a path different from the `notes_dir` path
+is provided the path will be stripped off and the file will be saved to the 
+`notes_dir`.
 
 Commands
 --------
@@ -78,6 +86,9 @@ Then you can extract the tasks with
 
     :ScanTasks
 
+Detailed information how to use the @task annotation can be found at
+[Create tasks by scanning from files](https://github.com/sugaryourcoffee/syc-task#create-tasks-by-scanning-from-files)
+
 ### FindWord
 To search all .mom.md files for a specific word run
 
@@ -88,7 +99,7 @@ Open the quickfix list with `:copen`. Jump through the list with `:cnext` and
 `:cprev`.
 
 ### FindFile
-Similar to FindWord it is possible to search for files in the vimnote\_dir with
+Similar to FindWord it is possible to search for files in the `notes_dir` with
 
     :FindFiles 2016-09-25*.mom.md
 
