@@ -45,21 +45,14 @@ function! SearchFiles(filename)
 endfunction
 command! -nargs=1 FindFiles call SearchFiles(<q-args>)
 
-" Load a template if a file with the extension '.mom.md' is opened
-" function! LoadTemplate()
-"   0r ~/.vim/bundle/vimnote/templates/mom.md
-" endfunction
-" autocmd BufNewFile *.mom.md call LoadTemplate()
-
+" Load a template if a file with the extension '.mom.md' is opened and file
+" does not exist
 function! CreateOrOpenFile(name)
   let path = &path
   execute 'set path+=' . expand(g:notes_dir)
   let existing = findfile(a:name)
   if !empty(existing)
-    "setlocal bufhidden=wipe
-    "execute 'silent keepalt file ' . fnameescape(existing)
-    "set bufhidden<
-    echomsg @%
+    execute 'silent bd! ' . @%
     execute 'edit! ' . existing
   else
     0r ~/.vim/bundle/vimnote/templates/mom.md
@@ -74,10 +67,14 @@ inoremap <c-j> <ESC>/<+.\{-1,}+><cr>c/+>/e<cr>
 
 " Intercept the write command for '.mom.md' and save it to the 'notes_dir'
 function! SaveToNotesDir()
-  let original_buffer = @%
-  execute 'save! ' . g:notes_dir . expand("%:p:t")
-  set nomodified
-  execute 'silent bd! ' . original_buffer
+  if @% == expand(g:notes_dir) . expand("%:p:t")
+    write!
+  else
+    let original_buffer = @%
+    execute 'save! ' . g:notes_dir . expand("%:p:t")
+    set nomodified
+    execute 'silent bd! ' . original_buffer
+  endif
 endfunction
 autocmd BufWriteCmd *.mom.md call SaveToNotesDir()
 
