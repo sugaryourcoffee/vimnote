@@ -19,10 +19,9 @@ command! WritePDF call CreatePDF()
 " https://rubygems/sugaryourcoffee/syc-task.
 function! ExtractTasks()
   let command = 'syctask scan ' . @%
-  let result = system(command)
+  let result = split(system(command), '\n')
 
-  let message = len(result) == 1 ? result[0] : result[1]
-  echomsg '[vimnote] . message 
+  echomsg '[vimnote] . message[0]
 endfunction
 command! ScanTasks call ExtractTasks()
 
@@ -47,10 +46,27 @@ endfunction
 command! -nargs=1 FindFiles call SearchFiles(<q-args>)
 
 " Load a template if a file with the extension '.mom.md' is opened
-function! LoadTemplate()
-  0r ~/.vim/bundle/vimnote/templates/mom.md
+" function! LoadTemplate()
+"   0r ~/.vim/bundle/vimnote/templates/mom.md
+" endfunction
+" autocmd BufNewFile *.mom.md call LoadTemplate()
+
+function! CreateOrOpenFile(name)
+  let path = &path
+  execute 'set path+=' . expand(g:notes_dir)
+  let existing = findfile(a:name)
+  if !empty(existing)
+    "setlocal bufhidden=wipe
+    "execute 'silent keepalt file ' . fnameescape(existing)
+    "set bufhidden<
+    echomsg @%
+    execute 'edit! ' . existing
+  else
+    0r ~/.vim/bundle/vimnote/templates/mom.md
+  endif
+  let &path = path
 endfunction
-autocmd BufNewFile *.mom.md call LoadTemplate()
+autocmd BufNewFile *.mom.md nested call CreateOrOpenFile(expand('<afile>'))
 
 " Mappings to jump to and replace the place holders in the template
 nnoremap <c-j> /<+.\{-1,\}+><cr>c/+>/e<cr>
