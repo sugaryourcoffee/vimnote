@@ -1,0 +1,112 @@
+*vimnote.txt*                                         For Vim version 7.4
+
+=============================================================================
+Author:  Pierre Sugar <pierre@sugaryourcoffee.de>     *vimnote-author*
+License: Vim (see |vim-license|)
+=============================================================================
+CONTENTS					*vimnote-contents*
+
+|vimnote-introduction|                      Introduction and Feature Summary
+|vimnote-usage|                             How to use vimnote
+|vimnote-setup|                             Installation and Setup
+|vimnote-commands|                          Commands
+|vimnote-settings|                          Settings
+
+=============================================================================
+INTRODUCTION					*vimnote*
+						*vimnote-introduction*
+
+This plugin adds support for note taking with Vim. 
+
+=============================================================================
+USAGE                                           *vimnote-usage*
+
+Notes have the extension .mom.md. When opening a new file with .mom.md it will 
+be populated with a template. The template is located at
+>
+        ~/.vim/bundle/vimnote/templates/mom.md. 
+        
+The content of the template can be replaced.
+
+When opening an existing file with the extension .mom.md it will be looked up
+in the notes directory. If it exists it will be loaded into the Vim buffer.
+
+=============================================================================
+SETUP    					*vimnote-setup*
+
+Installation
+                                                *pathogen.vim*
+To install vimnote install pathogen.vim. Then create the directory if it doesn't
+exist 
+>
+        $ mkdir ~/.vim/bundle/. 
+              
+Pull vimnote from https://github.com/sugaryourcoffee/vimnote.git. Start Vim and
+vimnote is available for note taking.
+
+Setup
+vimnote expects the applications pandoc and latex-full for pdf creationg  and 
+syc-task for scanning tasks.
+
+                                                *pandoc*
+Install pandoc by running
+>
+        $ sudo apt-get update
+
+                                                *latex-full*
+Install latex-full by running 
+>
+        $ sudo apt-get latex-full
+
+                                                *syc-task*
+Install syc-task by running 
+>
+        $ gem install syc-task
+
+=============================================================================
+COMMANDS					*vimnote-commands*
+
+						*:WritePDF*
+:WritePDF	        Converts the file to PDF.
+
+						*:FindWords*
+:FindWords {word}
+			Searches all notes for the word.
+
+						*:FindFiles*
+:FindFiles {pattern}	Searches the notes directory for the file pattern.
+                        
+						*:ScanTasks*
+:ScanTasks	        Scans the file for tasks and adds them to syc-task. 
+>
+                        Example
+                        -------
+                        @tasks;
+                        title;follow_up
+                        clean kitchen;2016-09-28
+                        go shopping;2016-09-29
+<
+                        Detailed description of how to annotate tasks can be
+                        found at https://github.com/sugaryourcoffee/syc-task.git
+
+=============================================================================
+SETTINGS					*vimnote-settings*
+
+You can configure plugin using global variables in your |vimrc|.
+
+Global Settings~
+
+						*g:notes_dir*
+Set the directory where notes are saved to
+>
+        let g:notes_dir="~/Documents/mom/"
+
+=============================================================================
+LICENSE							*vimnote-license*
+			Version 1, September 2016
+
+     Copyright (C) 2016 <pierre@thesugars.de>
+
+     vimnote comes with the Vim license.
+
+ vim:tw=78:ts=8:ft=help:norl:
