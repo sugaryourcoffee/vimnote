@@ -67,7 +67,7 @@ inoremap <c-j> <ESC>/<+.\{-1,}+><cr>c/+>/e<cr>
 
 " Intercept the write command for '.mom.md' and save it to the 'notes_dir'
 function! SaveToNotesDir()
-  if @% == expand(g:notes_dir) . expand("%:p:t")
+  if expand(@%) == expand(g:notes_dir) . expand("%:p:t")
     write!
   else
     let original_buffer = @%
