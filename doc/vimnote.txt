@@ -50,18 +50,18 @@ available for note taking.
         $ git pull git://github.com/sugaryourcoffee/vimnote.git
 
 Setup
-vimnote expects the applications pandoc and latex-full for pdf creationg  and 
+vimnote expects the applications pandoc and latex-full for pdf creation  and 
 syc-task for scanning tasks.
 
                                                 *pandoc*
 Install pandoc by running
 >
-        $ sudo apt-get update
+        $ sudo apt-get install pandoc
 
                                                 *latex-full*
 Install latex-full by running 
 >
-        $ sudo apt-get latex-full
+        $ sudo apt-get install latex-full
 
                                                 *syc-task*
 Install syc-task by running 
@@ -72,14 +72,15 @@ Install syc-task by running
 COMMANDS					*vimnote-commands*
 
 						*:WritePDF*
-:WritePDF	        Converts the file to PDF.
+:WritePDF	        Converts the file to PDF. The pdf is installed at
+                        notes_dir/pdf
 
 						*:FindWords*
 :FindWords {word}
-			Searches all notes for the word.
+			Searches all notes in notes_dir for the word.
 
 						*:FindFiles*
-:FindFiles {pattern}	Searches the notes directory for the file pattern.
+:FindFiles {pattern}	Searches the notes_dir for the file pattern.
                         
 						*:ScanTasks*
 :ScanTasks	        Scans the file for tasks and adds them to syc-task. 
