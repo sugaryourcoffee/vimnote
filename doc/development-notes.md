@@ -88,6 +88,11 @@ transformation it will look like this
 This kind of multiline table is an extension of **pandoc**. Details can be found
 at `man pandoc`.
 
+The original table should be saved to .raw.mom.md
+
+To format a table it has to by visually selected. Then `:FormatTable` will 
+format it to a multiline table.
+
 Compile to PDF
 --------------
 To distribute our document we have to convert it to a document format that can
