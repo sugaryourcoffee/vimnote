@@ -93,6 +93,47 @@ The original table should be saved to .raw.mom.md
 To format a table it has to by visually selected. Then `:FormatTable` will 
 format it to a multiline table.
 
+To programatically get the visual selection we can use
+
+    normal `<y`>
+    
+which will yank the selected text to the **0** buffer. We can retrieve the 
+selection with 
+
+    let selection = @0
+
+The lines are separated with `^@` wich is Vim's `\n` and we can split up the 
+selection into lines with
+
+    let lines = split(selection, '\n')
+
+Next we have to determine the maximum length of each column value. To retrieve
+the columns we need to
+
+* determine the column separator
+* split each line into columns
+* group the lines column values
+* determine the maximum column width of each column
+
+The table width should not exceed 80 characters. So we have to distribute the
+table colum widths to not exceed 80 characters.
+
+* determine the width of each column
+* split each column value in multiple lines if neccessary so the column value
+  fits into the column width
+
+Now we have prepared the columns and are ready to create the table.
+
+* start the table with a dashed line over the width of the table
+* use the first non-empty line as the header
+* underline the header values with a dashed line with the column width
+* write the columns of each line respecting the column width. If neccessary fill
+  with blanks
+* separate each line with a blank line
+* After the last line print a dashed line over the width of the table
+
+Finally replace the old table with the newly created table.
+
 Compile to PDF
 --------------
 To distribute our document we have to convert it to a document format that can

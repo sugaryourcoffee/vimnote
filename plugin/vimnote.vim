@@ -1,3 +1,12 @@
+" formats a table like structure to a pandoc multiline table
+function! FormatTable()
+  normal `<y`>
+  let selection = @0
+  echomsg "<<<" . selection . ">>>"
+  let lines = split(selection, '\n')
+  echomsg "---" . join(lines, ';') . "..."
+endfunction
+
 " creates a PDF from the currently used file and writing it to
 " g:notes_dir/pdf/ with the name of the file
 function! CreatePDF()
