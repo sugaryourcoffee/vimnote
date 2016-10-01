@@ -2,9 +2,34 @@
 function! FormatTable()
   normal `<y`>
   let selection = @0
-  echomsg "<<<" . selection . ">>>"
   let lines = split(selection, '\n')
-  echomsg "---" . join(lines, ';') . "..."
+"  echomsg "---" . join(lines, ';') . "..."
+  let line_columns = []
+  for line in lines
+    call add(line_columns, split(line, '|'))
+  endfor
+"  echomsg join(line_columns, ';')
+  let columns = []
+  for line_column in line_columns
+    let i = 0
+    for column in line_column
+      let column = substitute(column, '\v^\s*|\s*$', '', 'g')
+      "echomsg ">>" . column . "<<"
+      if len(columns) < i + 1
+        call add(columns, [column])
+      else 
+        call add(columns[i], column)
+      endif
+      " echomsg join(columns[i], ' | ')
+      let i += 1
+    endfor
+  endfor
+  let widths = []
+  for column in columns
+    call add(widths, max(map(column, 'len(v:val)')))
+  endfor
+  echomsg join(widths, ',')
+  
 endfunction
 
 " creates a PDF from the currently used file and writing it to

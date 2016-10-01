@@ -60,9 +60,7 @@ When we create a table this might look like this
     ----- | ----------- | ---
     Invite to meeting | Participants: Jane, Jack, Jon | Sue
     Minutes | Distribute by tomorrow | Jane
-    Decide upon investment | Get all stakeholders on one table within next 5
-    days and check if the business cases are challengable and investment can be
-    released | Jeniffer
+    Decide upon investment | Get all stakeholders on one table within next 5 days and check if the business cases are challengable and investment can be released | Jeniffer
 
     Table: Todos by next Monday
 
@@ -77,7 +75,7 @@ transformation it will look like this
 
     Minutes                Distribute by tomorrow              Jane
 
-    Decide upon investment Get all stakeholders on one table 
+    Decide upon investment Get all stakeholders at one table 
                            within next 5 days and check if the 
                            business cases are challengable and 
                            investment can be released          Jeniffer
@@ -90,7 +88,7 @@ at `man pandoc`.
 
 The original table should be saved to .raw.mom.md
 
-To format a table it has to by visually selected. Then `:FormatTable` will 
+To format a table it has to be visually selected. Then `:FormatTable` will 
 format it to a multiline table.
 
 To programatically get the visual selection we can use
@@ -112,13 +110,13 @@ the columns we need to
 
 * determine the column separator
 * split each line into columns
-* group the lines column values
+* group the lines' column values
 * determine the maximum column width of each column
 
 The table width should not exceed 80 characters. So we have to distribute the
 table colum widths to not exceed 80 characters.
 
-* determine the width of each column
+* calculate the width of each column
 * split each column value in multiple lines if neccessary so the column value
   fits into the column width
 
