@@ -71,6 +71,38 @@ Install syc-task by running
 ==============================================================================
 COMMANDS					*vimnote-commands*
 
+
+						*:FormatTable*
+:FormatTable	        A table like structure gets formatted into a pandoc
+                        pandoc multiline table.
+>
+                        Example
+                        -------
+                        Topic | Description | Who
+                        ----- | ----------- | -------
+                        Shopping | Get some decent clothing | Me
+                        Cleaning | Clean the house before winter | Jane
+                        Study | Study VimL to get more professional | Jennifer
+<
+                        running FormatTable will create a pandoc multiline 
+                        table
+>
+                        -----------------------------------------------------
+                        Topic    Description                         Who
+                        -------- ----------------------------------- --------
+                        Shopping Get some decent clothing            Me
+
+                        Cleaning Clean the house before winter       Jane
+
+                        Study    Study VimL to get more professional Jennifer
+                        -----------------------------------------------------
+<                       
+                        More information can be found at
+>
+                        $ man pandoc
+<
+                        then search for 'multiline_tables'
+
 						*:WritePDF*
 :WritePDF	        Converts the file to PDF. The pdf is installed at
                         notes_dir/pdf

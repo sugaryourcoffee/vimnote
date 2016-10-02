@@ -66,6 +66,33 @@ Commands
 --------
 vimnote provides following commands
 
+### FormatTable	        
+A table like structure gets formatted into a pandoc pandoc multiline table.
+
+    Topic | Description | Who
+    ----- | ----------- | -------
+    Shopping | Get some decent clothing | Me
+    Cleaning | Clean the house before winter | Jane
+    Study | Study VimL to get more professional | Jennifer
+
+running `FormatTable` will create a pandoc multiline table
+
+    -----------------------------------------------------
+    Topic    Description                         Who
+    -------- ----------------------------------- --------
+    Shopping Get some decent clothing            Me
+
+    Cleaning Clean the house before winter       Jane
+
+    Study    Study VimL to get more professional Jennifer
+    -----------------------------------------------------
+
+More information can be found at
+
+    $ man pandoc
+
+then search for `multiline\_tables`
+
 ### WritePDF
 When in the note file you can run the WritePDF command to create a pdf file
 
