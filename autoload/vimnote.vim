@@ -16,3 +16,9 @@ function! vimnote#ExecuteSearch(command, condition, message)
   call delete(quickfix_file)
 endfunction
 
+" helper to remove white spaces at the beginning and the end of the 'value'
+function! vimnote#Trim(value)
+  return substitute(a:value, '\v^\s*|\s*$', '', 'g')
+endfunction
+
+

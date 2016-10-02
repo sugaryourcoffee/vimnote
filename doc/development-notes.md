@@ -118,7 +118,12 @@ table colum widths to not exceed 80 characters.
 
 * calculate the width of each column
 * split each column value in multiple lines if neccessary so the column value
-  fits into the column width
+  fits into the column width. This one is a bit tricky so we further describe
+  the approach
+    + split up each line's column into chunks and fill it up with spaces so it 
+      fits the column width
+    + determine the column with the most rows and concat each column row to one
+      row.
 
 Now we have prepared the columns and are ready to create the table.
 
