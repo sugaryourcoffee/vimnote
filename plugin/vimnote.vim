@@ -1,5 +1,6 @@
 " formats a table like structure to a pandoc multiline table
-function! FormatTable()
+function! FormatTable(separator)
+  let sep = len(a:separator) > 0 ? a:separator : '|'
   normal `<y`>
   let selection = @0
   let lines = split(selection, '\n')
@@ -8,15 +9,15 @@ function! FormatTable()
   let header_row = lines[1] =~ '^-\+'
   if header_row == 0
     if lines[0] !~ '^-\+'
-      let col_count = len(split(lines[0], '|'))
-      call insert(lines, '-' . repeat('|-', col_count-1), 0)
+      let col_count = len(split(lines[0], sep))
+      call insert(lines, '-' . repeat(sep . '-', col_count-1), 0)
     endif
   endif
 
   " split up each line into columns
   let line_columns = []
   for line in lines
-    call add(line_columns, map(split(line, '|'), 'vimnote#Trim(v:val)')) 
+    call add(line_columns, map(split(line, sep), 'vimnote#Trim(v:val)')) 
   endfor
 
   " group the lines' columns
@@ -107,8 +108,8 @@ function! FormatTable()
     end
     let current_row += 1
   endfor
-  
 endfunction
+command! -nargs=? FormatTable call FormatTable(<q-args>)
 
 " creates a PDF from the currently used file and writing it to
 " g:notes_dir/pdf/ with the name of the file

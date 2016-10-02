@@ -73,8 +73,9 @@ COMMANDS					*vimnote-commands*
 
 
 						*:FormatTable*
-:FormatTable	        A table like structure gets formatted into a pandoc
-                        pandoc multiline table.
+:FormatTable {sep}      A table like structure gets formatted into a pandoc
+                        pandoc multiline table. Optionally a separator can be
+                        provided. Default separator is '|'
 >
                         Example
                         -------
