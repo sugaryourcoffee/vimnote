@@ -4,6 +4,15 @@ function! FormatTable()
   let selection = @0
   let lines = split(selection, '\n')
 
+  " check for a header column
+  let header_row = lines[1] =~ '^-\+'
+  if header_row == 0
+    if lines[0] !~ '^-\+'
+      let col_count = len(split(lines[0], '|'))
+      call insert(lines, '-' . repeat('|-', col_count-1), 0)
+    endif
+  endif
+
   " split up each line into columns
   let line_columns = []
   for line in lines
@@ -46,7 +55,7 @@ function! FormatTable()
   for line_column in line_columns 
     let col_idx = 0
     for column in line_column
-      let line_columns[row_idx][col_idx] = SplitColumn(column, 
+      let line_columns[row_idx][col_idx] = vimnote#SplitColumn(column, 
                                                      \ col_widths[col_idx])
       let col_idx += 1
     endfor 
@@ -54,7 +63,12 @@ function! FormatTable()
   endfor
 
   " create the new multiline table
-  let table = [repeat('-', 80)]
+  if header_row
+    let table = [repeat('-', 80)]
+  else
+    let table = []
+  endif
+
   let line_column_idx = 0
   for line_column in line_columns
     let max_rows = max(map(copy(line_column), 'len(v:val)'))
@@ -73,7 +87,8 @@ function! FormatTable()
       call add(table, table_row) 
       let row_idx += 1  
     endwhile
-    if line_column_idx > 1 && line_column_idx < len(line_columns) - 1
+    if line_column_idx > (0 + header_row) && 
+     \ line_column_idx < len(line_columns) - 1
       call add(table, " ")
     endif
     let line_column_idx += 1
@@ -93,64 +108,6 @@ function! FormatTable()
     let current_row += 1
   endfor
   
-endfunction
-
-" split column into multiple rows so the column will fit into the column width
-function! SplitColumn(column, width)
-  if a:column =~ "^-*$"
-    return [repeat('-', a:width)]
-  elseif len(a:column) == a:width
-    return [a:column]
-  elseif len(a:column) < a:width
-    return [a:column . repeat(' ', a:width - len(a:column))]
-  endif
-  let words = split(a:column)
-  let rows = []
-  let row = ""
-  while len(words) > 0
-    let word = words[0]
-    if len(word) > a:width
-      call extend(words, SplitWord(word, a:width), index(words, word) + 1)
-    elseif len(row) == 0
-      let row = word
-    elseif len(row) + 1 + len(word) < a:width
-      let row = row . " " . word
-    elseif len(row) + 1 + len(word) == a:width
-      let row = row . " " . word
-      call add(rows, row)
-      let row = ""
-    else
-      let row = row . repeat(' ', a:width - len(row))
-      call add(rows, row)
-      let row = word
-    endif
-    call remove(words, 0)
-  endwhile
-  if len(row) > 0
-    let row = row . repeat(' ', a:width - len(row))
-    call add(rows, row)
-  endif
-  return rows
-endfunction
-
-" Split word in width chunks
-function! SplitWord(word, width)
-  if len(a:word) <= a:width
-    return [a:word]
-  endif
-  let word_chunks = []
-  let chunks = 1.0 * len(a:word) / a:width
-  if floor(chunks) < chunks
-    let chunks = floor(chunks) + 1
-  endif
-  let chunks = float2nr(chunks) 
-  let pos = 0
-  while chunks > 0
-    call add(word_chunks, a:word[pos:pos+a:width-1])
-    let pos += a:width
-    let chunks -= 1
-  endwhile
-  return word_chunks
 endfunction
 
 " creates a PDF from the currently used file and writing it to
