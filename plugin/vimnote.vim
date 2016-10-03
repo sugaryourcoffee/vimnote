@@ -95,11 +95,15 @@ function! FormatTable(separator)
     let line_column_idx += 1
   endfor
   call add(table, repeat('-', 80))
-  call add(table, " ")
 
   " finally replace the visually selected text with the newly formatted table
   let current_row   = getpos("'<")[1]
   let end_row     = getpos("'>")[1]
+  
+  if getline(end_row) !~ '\v^\s*$'
+    call add(table, " ")
+  endif
+
   for row in table
     if current_row < end_row
       call setline(current_row, row)
