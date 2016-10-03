@@ -1,3 +1,11 @@
+" Create a default working directory if 'notes_dir' variable doesn't exist
+if !exists("g:notes_dir")
+  let g:notes_dir = expand("~/vimnote/")
+  if !isdirectory(g:notes_dir)
+    call mkdir(g:notes_dir . "pdf", "p")
+  endif
+endif
+
 " formats a table like structure to a pandoc multiline table
 function! FormatTable(separator)
   let sep = len(a:separator) > 0 ? a:separator : '|'
@@ -119,7 +127,7 @@ command! -nargs=? FormatTable call FormatTable(<q-args>)
 " g:notes_dir/pdf/ with the name of the file
 function! CreatePDF()
   let pdf_dir = g:notes_dir . 'pdf/'
-  let outfile = pdf_dir . split(fnamemodify(@%, ':t'), 'md')[0] . 'pdf'
+  let outfile = pdf_dir . split(fnamemodify(@%, ':t'), '.md')[0] . '.pdf'
   let command = 'pandoc ' . @% . ' -f markdown -s -o ' . outfile
   let message = system(command)[:-2]
   
@@ -162,8 +170,8 @@ function! SearchFiles(filename)
 endfunction
 command! -nargs=1 FindFiles call SearchFiles(<q-args>)
 
-" Load a template if a file with the extension '.mom.md' is opened and file
-" does not exist
+" Load a template if a file with the extension '.minutes|.note|.speech' is 
+" opened and file does not exist
 function! CreateOrOpenFile(name)
   let path = &path
   execute 'set path+=' . expand(g:notes_dir)
@@ -172,17 +180,21 @@ function! CreateOrOpenFile(name)
     execute 'silent bd! ' . @%
     execute 'edit! ' . existing
   else
-    0r ~/.vim/bundle/vimnote/templates/mom.md
+    let extension = expand('%:e')
+    execute '0r ' . expand("~/.vim/bundle/vimnote/templates/" . extension)
   endif
   let &path = path
 endfunction
-autocmd BufNewFile *.mom.md nested call CreateOrOpenFile(expand('<afile>'))
+autocmd BufNewFile *.minutes nested call CreateOrOpenFile(expand('<afile>'))
+autocmd BufNewFile *.note    nested call CreateOrOpenFile(expand('<afile>'))
+autocmd BufNewFile *.speech  nested call CreateOrOpenFile(expand('<afile>'))
 
 " Mappings to jump to and replace the place holders in the template
 nnoremap <c-j> /<+.\{-1,\}+><cr>c/+>/e<cr>
 inoremap <c-j> <ESC>/<+.\{-1,}+><cr>c/+>/e<cr>
 
-" Intercept the write command for '.mom.md' and save it to the 'notes_dir'
+" Intercept the write command for '.minutes|.note|.speech' and save it to the 
+" 'notes_dir'
 function! SaveToNotesDir()
   if expand(@%) == expand(g:notes_dir) . expand("%:p:t")
     write!
@@ -193,5 +205,7 @@ function! SaveToNotesDir()
     execute 'silent bd! ' . original_buffer
   endif
 endfunction
-autocmd BufWriteCmd *.mom.md call SaveToNotesDir()
+autocmd BufWriteCmd *.minutes call SaveToNotesDir()
+autocmd BufWriteCmd *.note    call SaveToNotesDir()
+autocmd BufWriteCmd *.speech  call SaveToNotesDir()
 
