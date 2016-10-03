@@ -1,7 +1,12 @@
 vimnote.vim
 ===========
 Ease note taking with Vim by using the vimnote.vim plugin.
-
+                            _                       __     
+                     _   __(_)___ ___  ____  ____  / /____ 
+                    | | / / / __ `__ \/ __ \/ __ \/ __/ _ \
+                    | |/ / / / / / / / / / / /_/ / /_/  __/
+                    |___/_/_/ /_/ /_/_/ /_/\____/\__/\___/ 
+                                                           
 Installation
 ------------
 The easiest way to install vimnote.vim is to use 
@@ -145,4 +150,10 @@ vimnote comes with the same license as Vim. To read the license see
 Contact
 =======
 Questions and comments are welcome at pierre@sugaryourcoffe.de
+
+       ____                 __  __              _____     ______       
+      / __/_ _____ ____ ____\ \/ /__  __ ______/ ___/__  / _/ _/__ ___ 
+     _\ \/ // / _ `/ _ `/ __/\  / _ \/ // / __/ /__/ _ \/ _/ _/ -_) -_)
+    /___/\_,_/\_, /\_,_/_/   /_/\___/\_,_/_/  \___/\___/_//_/ \__/\__/ 
+             /___/                                                     
 
