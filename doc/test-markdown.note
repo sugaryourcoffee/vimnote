@@ -1,0 +1,57 @@
+% Mardown without md extension
+% 03.10.2016
+% Pierre Sugar <pierre@sugaryourcoffee.de
+
+Tables
+======
+
+This is a test to see whether the markdown syntax is recognized with a non md
+extension
+
+Topic | Description | Who
+----- | ----------- | -------
+Read  | Read a book | Me
+Write | Write a letter to you beloved husband | She
+
+Table 1: Read and Write
+
+--------------------------------------------------------------------------------
+Topic    Description                                                Who        
+-------- ---------------------------------------------------------- -----------
+Read     Read a book                                                Me         
+ 
+Write    Write a letter to you beloved husband                      She        
+--------------------------------------------------------------------------------
+
+Table 2: A Pandoc table
+
+Site notes
+==========
+
+| This is a site note
+|    which is great
+|    for rowing in a boat
+| This is no debate
+
+
+Rules
+=====
+
+A rule is just some -
+
+--------------------------------
+
+or some *
+
+********************************
+
+Code blocks
+===========
+
+    ```ruby
+    def read_markdown
+      puts 'markdown'
+    end
+    ```
+
+
