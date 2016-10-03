@@ -24,13 +24,18 @@ Next time you start up vimnote will be available.
 
 Preparation
 -----------
-vimnote expects notes in a specific directory. To specify the directory add
-following snippet to ~/.vimrc
+vimnote expects notes in a specific directory. If you don't specify a directory
+`~/vimnote/` will be created and used to save notes. To specify the directory
+add following snippet to ~/.vimrc
 
     let g:notes_dir="/path/to/your/notes/directory"
 
-vimnote is using pandoc to create pdf files from the mom.md file. In order to 
-use that function install [pandoc](http://pandoc.org/) with
+Create the directory along with a sub-directory 'pdf'
+
+    $ mkdir -p /path/to/your/notes/directory/pdf
+
+vimnote is using pandoc to create pdf files from the currently edited file. In
+order to use that function install [pandoc](http://pandoc.org/) with
 
     $ sudo apt-get install pandoc
 
@@ -45,22 +50,23 @@ mouse. If so I recommend zathura. To install
 
     $ sudo apt-get install zathura
 
-Tasks can be extracted from a .mom.md file into a syc-task task. To use this 
+Tasks can be extracted from a file into a syc-task task. To use this 
 function install [syc-task](https://rubygems.org/gems/syc-task) with
 
     $ gem install syc-task
 
 Usage
 -----
-When opening a file with the extension .mom.md a template file is loaded. The
-template file is located at ~/.vim/bundle/vimnote/templates/mom.md. You can 
-replace the content of that file in order to use a different content.
+When opening a file with the extension .minutes, .note or .speech a template 
+file is loaded. The template files are located in the directory
+'~/.vim/bundle/vimnote/templates/'. You can replace the content of these
+files in order to adjust the content to your convenience.
 
 When opening a new note open it with
 
-    $ vim my-note.mom.md
+    $ vim my-note.note
 
-it will be saved to the `notes_dir` directory. This has the advantage when 
+It will be saved to the `notes_dir` directory. This has the advantage when 
 searching content of notes or note files they will be found by the 
 **FindFiles** and **FindWords** commands.
 
@@ -74,8 +80,8 @@ Commands
 vimnote provides following commands
 
 ### FormatTable	        
-A table like structure gets formatted into a pandoc multiline table. The
-column separator defaults to the bar '|'. But if another spearator is used, as
+A table like structure gets formatted into a pandoc multi line table. The
+column separator defaults to the bar '|'. But if another separator is used, as
 in the example a semicolon ';' FormatTable takes an optional separator.
 
     Topic ; Description ; Who
@@ -85,7 +91,7 @@ in the example a semicolon ';' FormatTable takes an optional separator.
     Study ; Study VimL to get more professional ; Jennifer
 
 Visually select the table, then press `:<C-U>FormatTable;`. This will create a 
-pandoc multiline table as shown below
+pandoc multi line table as shown below
 
     -----------------------------------------------------
     Topic    Description                         Who
@@ -101,18 +107,18 @@ More information can be found at
 
     $ man pandoc
 
-then search for `multiline\_tables`
+Then search for `multiline_tables`
 
 ### WritePDF
 When in the note file you can run the WritePDF command to create a pdf file
 
     :WritePDF
 
-The pdf file is saved to /path/to/your/notes/directory/pdf/my-note.mom.pdf
+The pdf file is saved to /path/to/your/notes/directory/pdf/my-note.note.pdf
 
 ### ScanTask
 Tasks can be annotated with @tasks| where | is a field separator. Having 
-following task list in the .mom.md file
+following task list in the vimnote file
 
     @tasks|
     title|description|tags
@@ -127,7 +133,7 @@ Detailed information how to use the @task annotation can be found at
 [Create tasks by scanning from files](https://github.com/sugaryourcoffee/syc-task#create-tasks-by-scanning-from-files)
 
 ### FindWord
-To search all .mom.md files for a specific word run
+To search all vimnote files for a specific word run
 
     :FindWord clean
 
@@ -138,7 +144,7 @@ Open the quickfix list with `:copen`. Jump through the list with `:cnext` and
 ### FindFile
 Similar to FindWord it is possible to search for files in the `notes_dir` with
 
-    :FindFiles 2016-09-25*.mom.md
+    :FindFiles 2016-09-25*.minutes
 
 The result will be populated to the quickfix list and can be processed as 
 described in the FindWord section.

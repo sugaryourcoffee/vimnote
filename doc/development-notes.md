@@ -49,6 +49,44 @@ We map <c-j> in insert and normal mode to search and change the placeholder
 
 Formatting the document
 -----------------------
+The format of a document has several aspects. Formatting includes highlighting
+of specific words and sections. In this section we want to talk about the 
+implementation of highlighting and also talk about formatting helpers.
+
+### Filetype specific formatting
+*Vimnote* uses the markdown format. But we want to add additional functions 
+based on the file extension, e.g. loading templates. If we would use for all
+files the .markdown or .md extension we could not trigger specific behaviour.
+Therefore we create a new filetype that actually formats to markdown.
+
+#### Detecting the filetype
+We will have as we go different filetypes as the requirements occur. We start 
+with the .minutes and .note filetypes. Both filetypes acutally format as 
+markdown.
+
+To implement filetype detection we create the `vimnote/ftdetect/` directory  and
+add the vimnote.vim file.
+
+    $ mkdir vimnote/ftdetect
+    $ touch vimnote/ftdetect/vimnote.vim
+
+Add following to vimnote.vim
+
+    au BufNewFile,BufRead *.minutes setfiletype=markdown
+    au BufNewFile,BufRead *.note setfiletype=markdown
+
+When we are create (BufNewFile) or opening (BufRead) a file with extension 
+.minutes or .note the filetype vimnote will be set. After closing Vim and 
+reopening with a file test.note and then asking for the file type, Vim should 
+respond with `filetype=vimnote`.
+
+    :set filetype?
+    filetype=markdown
+
+If we add text to the file with markdown markup we will see the nicely 
+highlighted as markdown.
+
+### Table format
 Writing the minutes of meeting we want to concentrate on the content and not so
 much on the formatting. Escpecially when creating tables we just put the text in
 a table structure but won't nicely indent the columns. Column indentation 

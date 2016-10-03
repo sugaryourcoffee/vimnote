@@ -27,16 +27,17 @@ This plugin adds support for note taking with Vim.
 ==============================================================================
 USAGE                                           *vimnote-usage*
 
-Notes have the extension .mom.md. When opening a new file with .mom.md it will 
-be populated with a template. The template is located at
+Notes can have the extensions .minutes, .notes and .speech.  When opening a new
+file with one of these extensions it will be populated with a template. The
+templates are located at
 >
-        ~/.vim/bundle/vimnote/templates/mom.md. 
+        ~/.vim/bundle/vimnote/templates/
         
-The content of the template can be replaced.
+The content of the templates can be replaced.
 
 The new file will be saved to the notes directory no matter what directory path
-the file has. When opening an existing file with the extension .mom.md it will 
-be looked up in the notes directory and loaded into the Vim buffer.
+the file has. When opening an existing file with one of the vimnote extensions 
+it will be looked up in the notes directory and loaded into the Vim buffer.
 
 ==============================================================================
 SETUP    					*vimnote-setup*
@@ -84,7 +85,7 @@ COMMANDS					*vimnote-commands*
 						*:FormatTable*
 :FormatTable {sep}      A table like structure gets formatted into a pandoc
                         pandoc multiline table. Optionally a separator can be
-                        provided. Default separator is '|'
+                        provided. Default separator is `|`
 >
                         Example
                         -------
@@ -95,7 +96,7 @@ COMMANDS					*vimnote-commands*
                         Cleaning | Clean the house before winter | Jane
                         Study | Study VimL to get more professional | Jennifer
 <
-                        Visually select the table then press ':<C-U>' and run
+                        Visually select the table then press `:<C-U>` and run
                         FormatTable. This will create a pandoc multiline table
 >
                         -----------------------------------------------------
@@ -112,21 +113,21 @@ COMMANDS					*vimnote-commands*
 >
                         $ man pandoc
 <
-                        then search for 'multiline_tables'
+                        then search for `multiline_tables`
 
 						*:WritePDF*
-:WritePDF	        Converts the file to PDF. The pdf is installed at
-                        notes_dir/pdf
+:WritePDF	        Converts the file to PDF. The pdf is saved to
+                        `notes_dir/pdf`
 
 						*:FindWords*
 :FindWords {word}
-			Searches all notes in notes_dir for the word.
+			Searches all notes in `notes_dir` for the word.
 
 						*:FindFiles*
-:FindFiles {pattern}	Searches the notes_dir for the file pattern.
+:FindFiles {pattern}	Searches the `notes_dir` for the file pattern.
                         
 						*:ScanTasks*
-:ScanTasks	        Scans the file for tasks and adds them to syc-task. 
+:ScanTasks	        Scans the file for tasks and adds them to `syc-task`. 
 >
                         Example
                         -------
@@ -149,8 +150,14 @@ Global Settings~
 						*g:notes_dir*
 Set the directory where notes are saved to
 >
-        let g:notes_dir="~/Documents/mom/"
-
+        let g:notes_dir="~/Documents/vimnote/"
+<
+You have to create the `notes_dir` along with a pdf dir
+>
+        $ mkdir -p ~/Documents/vimnote/pdf
+<
+If you don't specify the vimnote directory the default directory `~/vimnote/` 
+will be used to save all notes.
 ==============================================================================
 LICENSE							*vimnote-license*
 			Version 1, September 2016
