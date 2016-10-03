@@ -67,7 +67,7 @@ Commands
 vimnote provides following commands
 
 ### FormatTable	        
-A table like structure gets formatted into a pandoc pandoc multiline table. The
+A table like structure gets formatted into a pandoc multiline table. The
 column separator defaults to the bar '|'. But if another spearator is used, as
 in the example a semicolon ';' FormatTable takes an optional separator.
 
@@ -77,7 +77,8 @@ in the example a semicolon ';' FormatTable takes an optional separator.
     Cleaning ; Clean the house before winter ; Jane
     Study ; Study VimL to get more professional ; Jennifer
 
-running `FormatTable ;` will create a pandoc multiline table
+Visually select the table, then press `:<C-U>FormatTable;`. This will create a 
+pandoc multiline table as shown below
 
     -----------------------------------------------------
     Topic    Description                         Who

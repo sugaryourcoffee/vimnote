@@ -1,5 +1,11 @@
-*vimnote.txt*        For Vim version 7.4        Last change: 2016 September 29
+*vimnote.txt*           For Vim version 7.4        Last change: 2016 October 3
 
+                          _                       __      ~
+                   _   __(_)___ ___  ____  ____  / /____  ~
+                  | | / / / __ `__ \/ __ \/ __ \/ __/ _ \ ~
+                  | |/ / / / / / / / / / / /_/ / /_/  __/ ~
+                  |___/_/_/ /_/ /_/_/ /_/\____/\__/\___/  ~
+                                                         
 ==============================================================================
 Author:  Pierre Sugar <pierre@sugaryourcoffee.de>     *vimnote-author*
 License: Vim (see |vim-license|)
@@ -35,6 +41,7 @@ be looked up in the notes directory and loaded into the Vim buffer.
 ==============================================================================
 SETUP    					*vimnote-setup*
 
+------------------------------------------------------------------------------
 Installation
                                                 *pathogen.vim*
 To install vimnote install https://github.com/tpope/pathogen.vim. Then create 
@@ -49,7 +56,9 @@ available for note taking.
         $ cd ~/.vim/bundle/
         $ git pull git://github.com/sugaryourcoffee/vimnote.git
 
+------------------------------------------------------------------------------
 Setup
+
 vimnote expects the applications pandoc and latex-full for pdf creation  and 
 syc-task for scanning tasks.
 
@@ -79,14 +88,15 @@ COMMANDS					*vimnote-commands*
 >
                         Example
                         -------
+
                         Topic | Description | Who
                         ----- | ----------- | -------
                         Shopping | Get some decent clothing | Me
                         Cleaning | Clean the house before winter | Jane
                         Study | Study VimL to get more professional | Jennifer
 <
-                        running FormatTable will create a pandoc multiline 
-                        table
+                        Visually select the table then press ':<C-U>' and run
+                        FormatTable. This will create a pandoc multiline table
 >
                         -----------------------------------------------------
                         Topic    Description                         Who
@@ -120,6 +130,7 @@ COMMANDS					*vimnote-commands*
 >
                         Example
                         -------
+
                         @tasks;
                         title;follow_up
                         clean kitchen;2016-09-28
@@ -146,6 +157,12 @@ LICENSE							*vimnote-license*
 
      Copyright (C) 2016 <pierre@thesugars.de>
 
+       ____                 __  __              _____     ______        ~
+      / __/_ _____ ____ ____\ \/ /__  __ ______/ ___/__  / _/ _/__ ___  ~
+     _\ \/ // / _ `/ _ `/ __/\  / _ \/ // / __/ /__/ _ \/ _/ _/ -_) -_) ~
+    /___/\_,_/\_, /\_,_/_/   /_/\___/\_,_/_/  \___/\___/_//_/ \__/\__/  ~
+             /___/                                                      ~
+             
      vimnote comes with the vim-license.
 
  vim:tw=78:ts=8:ft=help:norl:
