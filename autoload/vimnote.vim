@@ -72,7 +72,7 @@ function! vimnote#SplitWord(word, width)
   let chunks = float2nr(chunks) 
   let pos = 0
   while chunks > 0
-    call add(word_chunks, a:word[pos:pos+a:width-1])
+    call add(word_chunks, a:word[pos : pos+a:width-1])
     let pos += a:width
     let chunks -= 1
   endwhile
