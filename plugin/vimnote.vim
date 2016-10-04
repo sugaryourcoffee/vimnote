@@ -60,6 +60,14 @@ function! FormatTable(separator)
            \ float2nr(round(1.0*max_width/col_widths_total*table_width)))
   endfor
 
+  " check if full table width is exploited. If not add rest to smallest column
+  execute 'let table_total_width = ' . join(col_widths, '+')
+  let table_max_width = 80 - col_count + 1
+  if table_total_width < table_max_width
+    let col_widths[index(col_widths, 
+                 \ min(col_widths))] += table_max_width - table_total_width
+  endif
+
   " split up each column into multiple rows so a column won't exceed the 
   " calculated column width
   let row_idx = 0
