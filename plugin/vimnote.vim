@@ -1,9 +1,11 @@
-" Create a default working directory if 'notes_dir' variable doesn't exist
+" Assign a default notes directory if 'g:notes_dir' doesn't exist
 if !exists("g:notes_dir")
   let g:notes_dir = expand("~/vimnote/")
-  if !isdirectory(g:notes_dir)
-    call mkdir(g:notes_dir . "pdf", "p")
-  endif
+endif
+
+" Create the directory saved in 'g:notes_dir' if it doesn't exist
+if !isdirectory(expand(g:notes_dir))
+  call mkdir(expand(g:notes_dir) . "pdf", "p")
 endif
 
 " formats a table like structure to a pandoc multiline table
@@ -13,7 +15,7 @@ function! FormatTable(separator)
   let selection = @0
   let lines = split(selection, '\n')
 
-  " check for a header column
+  " check for a header row
   let header_row = lines[1] =~ '^-\+'
   if header_row == 0
     if lines[0] !~ '^-\+'
@@ -146,7 +148,7 @@ function! ExtractTasks()
   let command = 'syctask scan ' . @%
   let result = split(system(command), '\n')
 
-  echomsg '[vimnote] ' . message[0]
+  echomsg '[vimnote] ' . result[0]
 endfunction
 command! ScanTasks call ExtractTasks()
 
