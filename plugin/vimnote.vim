@@ -46,8 +46,8 @@ function! FormatTable(separator)
 
   " determine max width for each column
   let max_widths = []
-  for column in columns
-    call add(max_widths, max(map(column, 'len(v:val)')))
+  for acolumn in columns
+    call add(max_widths, max(map(acolumn, 'len(v:val)')))
   endfor
   
   " calculate the column widths so the table won't exceed 80 characters
