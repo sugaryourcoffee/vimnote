@@ -25,35 +25,35 @@ endfunction
 function! vimnote#SplitColumn(column, width)
   if a:column =~ "^-*$"
     return [repeat('-', a:width)]
-  elseif len(a:column) == a:width
+  elseif strwidth(a:column) == a:width
     return [a:column]
-  elseif len(a:column) < a:width
-    return [a:column . repeat(' ', a:width - len(a:column))]
+  elseif strwidth(a:column) < a:width
+    return [a:column . repeat(' ', a:width - strwidth(a:column))]
   endif
   let words = split(a:column)
   let rows = []
   let row = ""
   while len(words) > 0
     let word = words[0]
-    if len(word) > a:width
+    if strwidth(word) > a:width
       call extend(words, vimnote#SplitWord(word, a:width), index(words, word) + 1)
-    elseif len(row) == 0
+    elseif strwidth(row) == 0
       let row = word
-    elseif len(row) + 1 + len(word) < a:width
+    elseif strwidth(row) + 1 + strwidth(word) < a:width
       let row = row . " " . word
-    elseif len(row) + 1 + len(word) == a:width
+    elseif strwidth(row) + 1 + strwidth(word) == a:width
       let row = row . " " . word
       call add(rows, row)
       let row = ""
     else
-      let row = row . repeat(' ', a:width - len(row))
+      let row = row . repeat(' ', a:width - strwidth(row))
       call add(rows, row)
       let row = word
     endif
     call remove(words, 0)
   endwhile
-  if len(row) > 0
-    let row = row . repeat(' ', a:width - len(row))
+  if strwidth(row) > 0
+    let row = row . repeat(' ', a:width - strwidth(row))
     call add(rows, row)
   endif
   return rows
@@ -61,11 +61,11 @@ endfunction
 
 " Split word in width chunks
 function! vimnote#SplitWord(word, width)
-  if len(a:word) <= a:width
+  if strwidth(a:word) <= a:width
     return [a:word]
   endif
   let word_chunks = []
-  let chunks = 1.0 * len(a:word) / a:width
+  let chunks = 1.0 * strwidth(a:word) / a:width
   if floor(chunks) < chunks
     let chunks = floor(chunks) + 1
   endif
