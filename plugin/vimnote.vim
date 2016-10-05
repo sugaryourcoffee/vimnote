@@ -9,11 +9,14 @@ if !isdirectory(expand(g:notes_dir))
 endif
 
 " formats a table like structure to a pandoc multiline table
-function! FormatTable(separator)
+function! FormatTable(separator, start_line, end_line)
   let sep = len(a:separator) > 0 ? a:separator : '|'
-  normal `<y`>
-  let selection = @0
-  let lines = split(selection, '\n')
+  let lines = getline(a:start_line, a:end_line)
+  
+  if a:start_line == a:end_line
+    echomsg "[vimnote] --> FormatTable needs a range for formatting a table"
+    return
+  endif
 
   " check for a header row
   let header_row = lines[1] =~ '^-\+'
@@ -131,7 +134,7 @@ function! FormatTable(separator)
     let current_row += 1
   endfor
 endfunction
-command! -nargs=? FormatTable call FormatTable(<q-args>)
+command! -range -nargs=? FormatTable call FormatTable(<q-args>,<line1>,<line2>)
 
 " creates a PDF from the currently used file and writing it to
 " g:notes_dir/pdf/ with the name of the file
