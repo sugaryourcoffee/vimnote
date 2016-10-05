@@ -96,8 +96,8 @@ COMMANDS					*vimnote-commands*
                         Cleaning | Clean the house before winter | Jane
                         Study | Study VimL to get more professional | Jennifer
 <
-                        Visually select the table then press `:<C-U>` and run
-                        FormatTable. This will create a pandoc multiline table
+                        Visually select the table then print `:FormatTable`. 
+                        This will create a pandoc multiline table
 >
                         -----------------------------------------------------
                         Topic    Description                         Who
@@ -107,6 +107,7 @@ COMMANDS					*vimnote-commands*
                         Cleaning Clean the house before winter       Jane
 
                         Study    Study VimL to get more professional Jennifer
+
                         -----------------------------------------------------
 <                       
                         More information can be found at
@@ -133,6 +134,7 @@ COMMANDS					*vimnote-commands*
                         -------
 
                         @tasks;
+
                         title;follow_up
                         clean kitchen;2016-09-28
                         go shopping;2016-09-29
