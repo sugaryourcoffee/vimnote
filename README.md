@@ -90,8 +90,9 @@ in the example a semicolon ';' FormatTable takes an optional separator.
     Cleaning ; Clean the house before winter ; Jane
     Study ; Study VimL to get more professional ; Jennifer
 
-Visually select the table, then press `:<C-U>FormatTable;`. This will create a 
-pandoc multi line table as shown below
+Visually select the table, then press `:` which will open the command line 
+prefilled with the lines selected `:'<,'>`. Then type `FormatTable;`. This will 
+create a pandoc multi line table as shown below
 
     -----------------------------------------------------
     Topic    Description                         Who
@@ -101,6 +102,7 @@ pandoc multi line table as shown below
     Cleaning Clean the house before winter       Jane
 
     Study    Study VimL to get more professional Jennifer
+
     -----------------------------------------------------
 
 More information can be found at
@@ -121,6 +123,7 @@ Tasks can be annotated with @tasks| where | is a field separator. Having
 following task list in the vimnote file
 
     @tasks|
+
     title|description|tags
     Homework|do your homework|home_work
     Kitchen|clean the dishes|home_work
