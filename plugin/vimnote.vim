@@ -206,7 +206,7 @@ inoremap <c-j> <ESC>/<+.\{-1,}+><cr>c/+>/e<cr>
 " Intercept the write command for '.minutes|.note|.speech' and save it to the 
 " 'notes_dir'
 function! SaveToNotesDir()
-  if expand(@%) == expand(g:notes_dir) . expand("%:p:t")
+  if expand("%:p") == expand(g:notes_dir) . expand("%:p:t")
     write!
   else
     let original_buffer = @%
