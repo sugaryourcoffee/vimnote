@@ -79,3 +79,16 @@ function! vimnote#SplitWord(word, width)
   return word_chunks
 endfunction
 
+" Determine the return message from an application
+function! vimnote#GetMessage(return_message, result_indicator)
+  for message in a:return_message
+    if message =~ "error"
+      return message
+    elseif message == ""
+      next
+    elseif message =~ a:result_indicator
+      return message
+    endif
+  endfor 
+  return "No message given"
+endfunction

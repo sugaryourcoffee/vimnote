@@ -159,7 +159,11 @@ function! ExtractTasks()
   let command = 'syctask scan ' . @%
   let result = split(system(command), '\n')
 
-  echomsg '[vimnote] ' . result[0]
+  if len(result) > 0
+    echomsg '[vimnote] ' . vimnote#GetMessage(result, "-->")
+  else
+    echomsg '[vimnote] ' . result[0]
+  endif
 endfunction
 command! ScanTasks call ExtractTasks()
 
