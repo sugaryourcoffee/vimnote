@@ -68,7 +68,7 @@ created in `~/vimnote/images/`.
 
 When the user types the sequence `![image caption](` the image directory will
 be inserted and with `^x^f` the files in this directory are displayed and can be
-navigated with `^n' and '^p'.
+navigated with `^n` and `^p`.
 
 Usage
 -----
