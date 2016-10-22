@@ -8,6 +8,36 @@ if !isdirectory(expand(g:notes_dir))
   call mkdir(expand(g:notes_dir) . "pdf", "p")
 endif
 
+" Assign a default image directory if 'g:image_dir' doesn't exist
+if !exists("g:image_dir")
+  let g:image_dir = expand(g:notes_dir . "images")
+endif
+
+" Create the image directory saved in 'g:image_dir' if it doesn't exist
+if !isdirectory(expand(g:image_dir))
+  call mkdir(expand(g:image_dir), "p")
+endif
+
+" insert image file from image directory. The image directory can be set in the
+" vimrc file
+function! InsertImage()
+  if !exists("g:image_sequence")
+    if v:char == '!'
+      let g:image_sequence = v:char
+      let g:image_line = line('.')
+    endif
+  else
+    let g:image_sequence .= v:char
+    if g:image_line != line('.')
+      unlet g:image_sequence
+    elseif g:image_sequence =~ '^!\[.\+\]('
+      unlet g:image_sequence
+      let v:char .= g:image_dir
+    endif
+  endif
+endfunction
+autocmd InsertCharPre * call InsertImage()
+
 " formats a table like structure to a pandoc multiline table
 function! FormatTable(separator, start_line, end_line)
   let sep = len(a:separator) > 0 ? a:separator : '|'

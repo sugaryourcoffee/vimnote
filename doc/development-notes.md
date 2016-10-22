@@ -175,6 +175,43 @@ Now we have prepared the columns and are ready to create the table.
 
 Finally replace the old table with the newly created table.
 
+### Insert an image
+To insert an image with markdown syntax we use 
+`![some image caption](url/of/the/image.png)`. When the user enters `![` the
+application listens for `](`. As soon as the user types this sequence of 
+characters the *image directory* is inserted and the user can invoke `^x^f`
+to display files in the image directory. If the user enters a new line before
+the character sequence `](` appears the application starts listening for `![`
+again.
+
+The string that holds the typed character sequence has to be global, so that
+between key strokes the content doesn't get lost.
+
+The *image directory* can be set in the `vimrc` file.
+
+    let g:image_dir="~/Pictures/"
+
+If the *image directory* is not set then a default directory will be used, which
+is `~/vimnote/images/`.
+
+    function! InsertImage()
+      if !exists("g:image_sequence")
+        if v:char == '!'
+          let g:image_sequence = v:char
+          let g:image_line = line('.')
+        endif
+      else
+        let g:image_sequence .= v:char
+        if g:image_line != line('.')
+          unlet g:image_sequence
+        elseif g:image_sequence =~ '^!\[.\+\]('
+          unlet g:image_sequence
+          let v:char .= g:image_dir
+        endif
+      endif
+    endfunction
+    autocmd InsertCharPre * call InsertImage()
+
 Compile to PDF
 --------------
 To distribute our document we have to convert it to a document format that can
