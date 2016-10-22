@@ -55,6 +55,21 @@ function install [syc-task](https://rubygems.org/gems/syc-task) with
 
     $ gem install syc-task
 
+To include an image `![image caption](/url/to/image/file)` can be used. vimnote
+asumes that images are saved to a common directory that can be set in the
+vimrc file as with
+
+    let g:image_dir="/path/to/your/image/dir"
+
+If no image directory is specified vimnote creates an image directory in the
+notes directory with the name *images*. So if neather the notes directory nor
+the image directory is specified by the user, the images directory will be 
+created in `~/vimnote/images/`.
+
+When the user types the sequence `![image caption](` the image directory will
+be inserted and with `^x^f` the files in this directory are displayed and can be
+navigated with `^n' and '^p'.
+
 Usage
 -----
 When opening a file with the extension .minutes, .note or .speech a template 
