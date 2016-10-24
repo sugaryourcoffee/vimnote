@@ -1,4 +1,4 @@
-*vimnote.txt*           For Vim version 7.4        Last change: 2016 October 3
+*vimnote.txt*           For Vim version 7.4       Last change: 2016 October 24
 
                           _                       __      ~
                    _   __(_)___ ___  ____  ____  / /____  ~
@@ -160,6 +160,25 @@ You have to create the `notes_dir` along with a pdf dir
 <
 If you don't specify the vimnote directory the default directory `~/vimnote/` 
 will be used to save all notes.
+
+                                                *g:image_dir*
+Set the directory where images can be imported from
+>
+        let g:image_dir="~/Pictures/"
+<
+If you don't specify the image directory it will be created within the vimnote
+directory called 'images'.
+
+An image can be inserted with 
+>
+        ![image caption](/home/user/Pictures/image.png)
+<
+vimnote listens for the image insertion string sequence
+>
+        ![image caption](
+<
+and adds the path to the image dir. Pressing <C-X><C-F> will open the file
+dialog with files in the image directory.
 ==============================================================================
 LICENSE							*vimnote-license*
 			Version 1, September 2016
