@@ -228,7 +228,7 @@ function! CreateOrOpenFile(name)
     execute 'edit! ' . existing
   else
     let extension = expand('%:e')
-    execute '0r ' . expand("~/.vim/bundle/vimnote/templates/" . extension)
+    execute '0r ' . expand("~/.vim/pack/plugins/start/vimnote/templates/" . extension)
   endif
   let &path = path
 endfunction
